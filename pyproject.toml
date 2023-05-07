@@ -1,0 +1,25 @@
+[build-system]
+  requires = ['setuptools>=40.8.0']
+  build-backend = 'setuptools.build_meta'
+
+[tool.setuptools]
+  packages = ["solrise"]
+
+[project]
+  name = "solrise"
+  version = "0.1.0"
+  description = "Sol (sun) rise calculation module"
+  authors = [{ name = "Solwatchers", email = "solwatchers@example.com" }]
+  license = { file = "LICENSE" }
+  requires-python = ">=3.9"
+  readme = "README.md"
+  classifiers = ["License :: OSI Approved :: MIT License"]
+
+  [project.optional-dependencies]
+    test = ["pytest"]
+
+  [project.urls]
+    Home = "https://github.com/abhidg/solrise"
+
+  [project.scripts]
+    solrise = "solrise:main"
