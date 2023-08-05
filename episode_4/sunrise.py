@@ -2,6 +2,10 @@
 Sunrise and sunset calculator
 """
 
+import math
+import datetime
+from typing import Literal
+
 DEG_TO_RAD = math.pi / 180
 zenith = 90.8
 
@@ -9,9 +13,9 @@ sin = lambda degrees: math.sin(DEG_TO_RAD * degrees)
 cos = lambda degrees: math.cos(DEG_TO_RAD * degrees)
 tan = lambda degrees: math.tan(DEG_TO_RAD * degrees)
 
-asin = lambda val: math.asin(val)
-acos = lambda val: math.acos(val)
-atan = lambda val: math.atan(val)
+asin = lambda val: math.asin(val) / DEG_TO_RAD
+acos = lambda val: math.acos(val) / DEG_TO_RAD
+atan = lambda val: math.atan(val) / DEG_TO_RAD
 
 
 class NoSunriseOrSunsetTime(Exception):
@@ -35,7 +39,7 @@ def suntime(
     if rise_or_set not in ["sunrise", "sunset"]:
         raise ValueError("Can only calculate sunrise or sunset")
     date = date or datetime.datetime.today().date()
-    day, month, year = now.day, now.month, now.year
+    day, month, year = date.day, date.month, date.year
 
     N1 = math.floor(275 * month / 9)
     N2 = math.floor((month + 9) / 12)
@@ -82,7 +86,7 @@ def suntime(
     hr = int(UT)
     min = round((UT - math.floor(UT)) * 60)
 
-    return datetime.datetime(year, month, day, hr, min, tzinfo=tz.tzutc())
+    return datetime.datetime(year, month, day, hr, min, tzinfo=datetime.timezone.utc)
 
 
 def sunrise(latitude, longitude, date=None) -> datetime.datetime:
